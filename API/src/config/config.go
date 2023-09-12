@@ -15,6 +15,9 @@ var (
 
 	//Porta - onde a API vai rodar
 	Porta = 0
+
+	//SecretKey - chave que vai ser usada para assinar o token
+	SecretKey []byte
 )
 
 // Carregar - inicializa as variaveis de ambiente
@@ -36,5 +39,5 @@ func Carregar() {
 		os.Getenv("DB_NOME"),
 	)
 
-	//SecretKey = []byte(os.Getenv("SECRET_KEY"))
+	SecretKey = []byte(os.Getenv("SECRET_KEY"))
 }
