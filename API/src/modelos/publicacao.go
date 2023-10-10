@@ -1,6 +1,8 @@
 package modelos
 
 import (
+	"errors"
+	"strings"
 	"time"
 )
 
@@ -16,7 +18,7 @@ type Publicacao struct {
 }
 
 // Preparar - vai chamar os métodos para validar e formatar a publicação recebida
-/*func (publicacao *Publicacao) Preparar() error {
+func (publicacao *Publicacao) Preparar() error {
 	if erro := publicacao.validar(); erro != nil {
 		return erro
 	}
@@ -40,4 +42,4 @@ func (publicacao *Publicacao) validar() error {
 func (publicacao *Publicacao) formatar() {
 	publicacao.Titulo = strings.TrimSpace(publicacao.Titulo)
 	publicacao.Conteudo = strings.TrimSpace(publicacao.Conteudo)
-}*/
+}
