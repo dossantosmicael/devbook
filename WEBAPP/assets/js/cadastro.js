@@ -18,5 +18,10 @@ console.log("Dentro da função")
            nick: $('#nick').val(),
            senha: $('#senha').val()
         }
-    })
+    }).done(function() { // status code 201 - 200 - 204
+        alert("usuario criado com sucesso!")
+    }).fail(function(){ // status code 400 - 404 - 403 - 500
+        console.log(erro)
+        alert("erro ao cadastrar usuario!")
+    });
 }
