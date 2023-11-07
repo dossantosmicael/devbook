@@ -28,7 +28,7 @@ func CriarUsuario(w http.ResponseWriter, r *http.Request) {
 	url := fmt.Sprintf("%s/usuarios", config.APIURL)
 	response, erro := http.Post(url, "application/json", bytes.NewBuffer(usuario))
 	if erro != nil {
-		respostas.JSON(w, response.StatusCode, respostas.ErroAPI{Erro: erro.Error()})
+		respostas.JSON(w, http.StatusInternalServerError, respostas.ErroAPI{Erro: erro.Error()})
 		return
 	}
 	defer response.Body.Close()
