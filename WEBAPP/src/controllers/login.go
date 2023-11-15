@@ -1,13 +1,13 @@
 package controllers
 
 import (
-	"api/src/modelos"
 	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"webapp/src/config"
 	"webapp/src/cookies"
+	"webapp/src/modelos"
 	"webapp/src/respostas"
 )
 

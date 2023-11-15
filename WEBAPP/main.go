@@ -16,6 +16,6 @@ func main() {
 	utils.CarregarTemplates()
 	r := router.Gerar()
 
-	fmt.Printf("Rodando WEBAPP na porta &d\n", config.Porta)
+	fmt.Printf("Rodando WEBAPP na porta %d\n", config.Porta)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.Porta), r))
 }

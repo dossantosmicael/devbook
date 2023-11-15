@@ -3,8 +3,11 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
+	"strconv"
 	"webapp/src/config"
+	"webapp/src/cookies"
 	"webapp/src/modelos"
 	"webapp/src/requisicoes"
 	"webapp/src/respostas"
@@ -29,6 +32,7 @@ func CarregarPaginaPrincipal(w http.ResponseWriter, r *http.Request) {
 		respostas.JSON(w, http.StatusInternalServerError, respostas.ErroAPI{Erro: erro.Error()})
 		return
 	}
+
 	defer response.Body.Close()
 
 	if response.StatusCode >= 400 {
@@ -36,17 +40,34 @@ func CarregarPaginaPrincipal(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	body, erro := io.ReadAll(response.Body)
+
 	var publicacoes []modelos.Publicacao
-	if erro = json.NewDecoder(response.Body).Decode(&publicacoes); erro != nil {
-		respostas.JSON(w, http.StatusUnprocessableEntity, respostas.ErroAPI{Erro: erro.Error()})
-		return
+
+	if body[0] == '[' {
+		// Trate como um array
+		if erro = json.Unmarshal(body, &publicacoes); erro != nil {
+			respostas.JSON(w, http.StatusUnprocessableEntity, respostas.ErroAPI{Erro: erro.Error()})
+			return
+		}
+	} else {
+		// Trate como um único objeto
+		var publicacao modelos.Publicacao
+		if erro = json.Unmarshal(body, &publicacao); erro != nil {
+			respostas.JSON(w, http.StatusUnprocessableEntity, respostas.ErroAPI{Erro: erro.Error()})
+			return
+		}
+		publicacoes = append(publicacoes, publicacao)
 	}
+
+	cookie, _ := cookies.Ler(r)
+	usuarioID, _ := strconv.ParseUint(cookie["id"], 10, 64)
 
 	utils.ExecutarTemplate(w, "home.html", struct {
 		Publicacoes []modelos.Publicacao
-		OutraCoisa  string
+		UsuarioID   uint64
 	}{
 		Publicacoes: publicacoes,
-		OutraCoisa:  "TESTE",
+		UsuarioID:   usuarioID,
 	})
 }
