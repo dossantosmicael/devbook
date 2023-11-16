@@ -1,3 +1,3 @@
 # devbook
  
-Aplicação de projeto que recria uma rede social.
+Aplicação de projeto que recria as funcionalidades de uma rede social.
