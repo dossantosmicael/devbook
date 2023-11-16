@@ -87,7 +87,7 @@ func BuscarPublicacoes(w http.ResponseWriter, r *http.Request) {
 // BuscarPublicacao - traz uma única publicação
 func BuscarPublicacao(w http.ResponseWriter, r *http.Request) {
 	parametros := mux.Vars(r)
-	publicacaoID, erro := strconv.ParseUint(parametros["publicacaoID"], 10, 64)
+	publicacaoID, erro := strconv.ParseUint(parametros["publicacaoId"], 10, 64)
 	if erro != nil {
 		respostas.Erro(w, http.StatusBadRequest, erro)
 		return
@@ -119,7 +119,7 @@ func AtualizarPublicacao(w http.ResponseWriter, r *http.Request) {
 	}
 
 	parametros := mux.Vars(r)
-	publicacaoID, erro := strconv.ParseUint(parametros["publicacaoID"], 10, 64)
+	publicacaoID, erro := strconv.ParseUint(parametros["publicacaoId"], 10, 64)
 	if erro != nil {
 		respostas.Erro(w, http.StatusBadRequest, erro)
 		return
@@ -178,7 +178,7 @@ func DeletarPublicacao(w http.ResponseWriter, r *http.Request) {
 	}
 
 	parametros := mux.Vars(r)
-	publicacaoID, erro := strconv.ParseUint(parametros["publicacaoID"], 10, 64)
+	publicacaoID, erro := strconv.ParseUint(parametros["publicacaoId"], 10, 64)
 	if erro != nil {
 		respostas.Erro(w, http.StatusBadRequest, erro)
 		return
@@ -240,7 +240,7 @@ func BuscarPublicacoesPorUsuario(w http.ResponseWriter, r *http.Request) {
 // CurtirPublicacao - adiciona uma curtida na publicação
 func CurtirPublicacao(w http.ResponseWriter, r *http.Request) {
 	parametros := mux.Vars(r)
-	publicacaoID, erro := strconv.ParseUint(parametros["publicacaoID"], 10, 64)
+	publicacaoID, erro := strconv.ParseUint(parametros["publicacaoId"], 10, 64)
 	if erro != nil {
 		respostas.Erro(w, http.StatusBadRequest, erro)
 		return
@@ -266,7 +266,7 @@ func CurtirPublicacao(w http.ResponseWriter, r *http.Request) {
 // DescurtirPublicacao - subtrai uma curtida na publicação
 func DescurtirPublicacao(w http.ResponseWriter, r *http.Request) {
 	parametros := mux.Vars(r)
-	publicacaoID, erro := strconv.ParseUint(parametros["publicacaoID"], 10, 64)
+	publicacaoID, erro := strconv.ParseUint(parametros["publicacaoId"], 10, 64)
 	if erro != nil {
 		respostas.Erro(w, http.StatusBadRequest, erro)
 		return
