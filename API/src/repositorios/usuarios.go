@@ -16,7 +16,7 @@ func NovoRepositorioDeUsuarios(db *sql.DB) *Usuarios {
 	return &Usuarios{db}
 }
 
-// Criar - insere um usuario no banco de dados
+// Criar - insere um usuário no banco de dados
 func (repositorio Usuarios) Criar(usuario modelos.Usuario) (uint64, error) {
 	statement, erro := repositorio.db.Prepare(
 		"insert into usuarios (nome, nick, email, senha) values(?, ?, ?, ?)",
@@ -40,9 +40,9 @@ func (repositorio Usuarios) Criar(usuario modelos.Usuario) (uint64, error) {
 
 }
 
-// Buscar - traz todos os usuário que atendem um filtro de nome ou nick do banco de dados
+// Buscar - traz todos os usuários que atendem um filtro de nome ou nick
 func (repositorio Usuarios) Buscar(nomeOuNick string) ([]modelos.Usuario, error) {
-	nomeOuNick = fmt.Sprintf("%%%s%%", nomeOuNick) //%nomeOuNick%
+	nomeOuNick = fmt.Sprintf("%%%s%%", nomeOuNick) // %nomeOuNick%
 
 	linhas, erro := repositorio.db.Query(
 		"select id, nome, nick, email, criadoEm from usuarios where nome LIKE ? or nick LIKE ?",
@@ -52,7 +52,6 @@ func (repositorio Usuarios) Buscar(nomeOuNick string) ([]modelos.Usuario, error)
 	if erro != nil {
 		return nil, erro
 	}
-
 	defer linhas.Close()
 
 	var usuarios []modelos.Usuario
@@ -71,7 +70,6 @@ func (repositorio Usuarios) Buscar(nomeOuNick string) ([]modelos.Usuario, error)
 		}
 
 		usuarios = append(usuarios, usuario)
-
 	}
 
 	return usuarios, nil
@@ -122,7 +120,7 @@ func (repositorio Usuarios) Atualizar(ID uint64, usuario modelos.Usuario) error 
 	return nil
 }
 
-// Deletar - exclui as informações de um usuario do banco de dados
+// Deletar - exclui as informações de um usuário no banco de dados
 func (repositorio Usuarios) Deletar(ID uint64) error {
 	statement, erro := repositorio.db.Prepare("delete from usuarios where id = ?")
 	if erro != nil {
@@ -137,7 +135,7 @@ func (repositorio Usuarios) Deletar(ID uint64) error {
 	return nil
 }
 
-// BuscarPorEmail - busca um usuário por email e retorna o seu ID e senha com hash
+// BuscarPorEmail - busca um usuário por email e retorna o seu id e senha com hash
 func (repositorio Usuarios) BuscarPorEmail(email string) (modelos.Usuario, error) {
 	linha, erro := repositorio.db.Query("select id, senha from usuarios where email = ?", email)
 	if erro != nil {
