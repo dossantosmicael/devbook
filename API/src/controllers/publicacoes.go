@@ -169,7 +169,7 @@ func AtualizarPublicacao(w http.ResponseWriter, r *http.Request) {
 	respostas.JSON(w, http.StatusNoContent, nil)
 }
 
-// DeletarPublicacao exclui os dados de uma publicação
+// DeletarPublicacao - exclui os dados de uma publicação
 func DeletarPublicacao(w http.ResponseWriter, r *http.Request) {
 	usuarioID, erro := autenticacao.ExtrairUsuarioID(r)
 	if erro != nil {
@@ -214,7 +214,7 @@ func DeletarPublicacao(w http.ResponseWriter, r *http.Request) {
 // BuscarPublicacoesPorUsuario - traz todas as publicações de um usuário específico
 func BuscarPublicacoesPorUsuario(w http.ResponseWriter, r *http.Request) {
 	parametros := mux.Vars(r)
-	usuarioID, erro := strconv.ParseUint(parametros["usuarioID"], 10, 64)
+	usuarioID, erro := strconv.ParseUint(parametros["usuarioId"], 10, 64)
 	if erro != nil {
 		respostas.Erro(w, http.StatusBadRequest, erro)
 		return
@@ -260,7 +260,6 @@ func CurtirPublicacao(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respostas.JSON(w, http.StatusNoContent, nil)
-
 }
 
 // DescurtirPublicacao - subtrai uma curtida na publicação
